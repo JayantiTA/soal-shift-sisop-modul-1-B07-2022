@@ -126,13 +126,6 @@ file akan diperiksa namanya satu persatu
 fileList=`ls "${HOME}/${LOG_DIRECTORY}"`
 ```
 
-# Untuk menghitung waktu sejam sebelumnya.
-# Kondisi bila jam 0 (12 malam lebih), bila dihitung sejam sebelumnya
-# akan mundur ke hari sebelumnya, menyebabkan banyak masalah.
-# Masalah diantaranya adalah Februari bisa tanggal 28 atau 29,
-# kabisat terjadi pada tahun kelipatan 400 atau kelipatan 4 dan bukan kelipatan 100
-# Bisa juga mundur tahun karena di tanggal 1 januari
-
 Script di bawah untuk menghitung batas bawah pencarian file. Bila script dijalankan pada pukul 01:00:00
 ke atas, untuk mencari waktu dari batas bawah mudah dengan mengurangkan waktu sejam dari waktu
 batas atas. Tetapi, bila dijalankan sebelum pukul 01:00:00, maka sejam sebelumnya akan mundur hari.
@@ -198,21 +191,6 @@ total=(0 0 0 0 0 0 0 0 0 0)
 minimum=(0 0 0 0 0 0 0 0 0 0)
 maximum=(0 0 0 0 0 0 0 0 0 0)
 ```
-
-	# tanda 10# memaksa convert string ke integer basis 10
-	# karena bila tidak, akan diubah dengan basis 8
-	# jika ada leading zero pada string
-		
-		#echo "$fileYear $fileMonth $fileDay $fileHour $fileMinute $fileSecond"
-		
-		# Jadi untuk mencari di antara jam, maka hanya perlu mencari
-		# nama file dengan tahun, bulan, hari, dan jam yang sama dengan
-		# jam batas bawah atau batas atas (mengapa? karena perbedaan hanya
-		# setiap 1 jam, kalau setiap 2 jam tidak akan bisa)
-		# misalnya jam 15:30:00, yang dicari 
-		# dari jam 14:30:00 sampai 15:30:00
-		# nah kalau sama dengan batas bawah, maka menit-detik-nya 
-		# harus lebih, kalau batas atas, maka menit-detik-nya harus kurang
 
 Script di bawah akan mengecek nama satu-persatu file yang ada di direktori log apakah
 merupakan file yang dibuat sejam sebelum script ini dijalankan. Untuk mengeceknya
@@ -375,7 +353,7 @@ chmod -wx "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 chmod o-r "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 ```
 
-# cron
+## cron
 
 Untuk menjalankan crontab yang diperlukan adalah
 - * * * * * bash minute_log.sh 
@@ -391,7 +369,7 @@ kumpulan script yang di dalam bash dituliskan di crontab) namun sayangnya tidak 
 karena command `logFileName="metrics_agg_`date +%Y%m%d%H`.log"` yang entah mengapa tidak dapat dijalankan
 namun ketika scriptnya di-copy dan dijalankan langsung pada terminal dapat berjalan dengan baik.
 
-# Dokumentasi Pengerjaan dan Rintangan
+## Dokumentasi Pengerjaan dan Rintangan
 
 Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan
 
