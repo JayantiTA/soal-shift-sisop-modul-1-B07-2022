@@ -9,7 +9,7 @@ read username
 function check_username() {
   local user_exists=0
   
-  for user in $(awk -F" " '{ print }' users/user.txt)
+  for user in $(awk '{ print $1 }' users/user.txt)
   do
     if [ $user == $username ]
     then
