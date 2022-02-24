@@ -295,7 +295,7 @@ done
 Script di bawah untuk membangun teks log yang akan disimpan di dalam log file beserta dengan
 rata-rata data yang telah diciptakan. Karena di dalam contoh soal pada bagian rata-rata terdapat
 nilai yang desimal, maka rata-rata yang dihasilkan juga memiliki desimal namun karena pembagian
-pada script bash selalu berupa integer, echo "scale=1; <nilai 1>/<nilai 2>" | bc` yang menyebabkan
+pada script bash selalu berupa integer, `echo "scale=1; <nilai 1>/<nilai 2>" | bc` yang menyebabkan
 setiap nilai meskipun pembagiannya bernilai bulat akan memiliki .0 dibelakangnya 
 (presisi hingga 1 nilai belakang koma). Berdasarkan contoh soal, nilai belakang koma menggunakan tanda
 "." bukan "," sehingga perhitungan tidak menggunakan `awk` karena desimal `awk` menggunakan ",". 
