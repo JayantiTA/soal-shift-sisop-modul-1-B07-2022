@@ -356,12 +356,12 @@ chmod o-r "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 ## cron
 
 Untuk menjalankan crontab yang diperlukan adalah
-- * * * * * bash minute_log.sh 
-- 0 * * * * bash aggregate_minutes_to_hourly_log.sh
+- \* \* \* \* \* bash minute_log.sh 
+- 0 \* \* \* \* bash aggregate_minutes_to_hourly_log.sh
 
-* * * * * akan membuat script bash dijalankan setiap menitnya
+\* \* \* \* \* akan membuat script bash dijalankan setiap menitnya
 
-0 * * * * akan membuat script bash dijalankan setiap menit 0 dalam arti lain setiap jam
+0 \* \* \* \* akan membuat script bash dijalankan setiap menit 0 dalam arti lain setiap jam
 
 Kami sudah mencoba membuat script bash untuk langsung membuat crontab ketika program dijalankan yaitu dengan
 crontab menjalankan semua script yang terdapat di dalam file bash (bukan menjalankan bash, tetapi langsung
