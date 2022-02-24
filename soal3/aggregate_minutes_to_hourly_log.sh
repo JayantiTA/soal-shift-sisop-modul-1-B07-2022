@@ -195,3 +195,5 @@ else
 fi
 
 printf "$logText" > "${HOME}/${LOG_DIRECTORY}/${logFileName}"
+chmod -wx "${HOME}/${LOG_DIRECTORY}/${logFileName}"
+chmod o-r "${HOME}/${LOG_DIRECTORY}/${logFileName}"

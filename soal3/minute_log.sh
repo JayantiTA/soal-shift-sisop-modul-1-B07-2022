@@ -27,3 +27,5 @@ userDirectorySize=( `du -sh ${HOME}` )
 logText="${logText},${HOME}/,${userDirectorySize[0]}\n"
 
 printf "${logText}" > "${HOME}/${LOG_DIRECTORY}/${logFileName}"
+chmod -wx "${HOME}/${LOG_DIRECTORY}/${logFileName}"
+chmod o-r "${HOME}/${LOG_DIRECTORY}/${logFileName}"
