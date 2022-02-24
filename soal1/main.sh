@@ -1,4 +1,7 @@
-# try to input username and password
+# try to input username
+printf "================================\n"
+printf "!!!Welcome to register.sh!!!\n"
+printf "================================\n"
 printf "Input your username: "
 read username
 printf "Input your password: "
@@ -16,25 +19,28 @@ function check_password() {
   echo $stat
 }
 
-if [[ $(check_password) -eq 0 ]]
+if [[ $(check_password) == 0 ]]
 then
   echo "`date +"%D %T"` LOGIN: INFO User $username logged in" >> log.txt
+  printf "\n--------------------------------------"
   printf "\nLOGIN: INFO User $username logged in"  # if register is fail
+  printf "\n--------------------------------------"
 else
   echo "`date +"%D %T"` LOGIN: ERROR Failed login attempt on user $username" >> log.txt
+  printf "\n---------------------------------------------------------"
   printf "\nLOGIN: ERROR Failed login attempt on user $username"  # if register is fail
+  printf "\n---------------------------------------------------------"
   exit 0  # exit program if username already exists
 fi
 
-# username="JayantiTA"
-
-echo "Input command"
+printf "\nInput command: "
 read commnd n
 
 function download_image() {
   pictureAmount=$n
   timeStampForFileName="`date "+%F"`"
   downloadFolderName="${timeStampForFileName}_${username}"
+
   if [ -d "${downloadFolderName}" ]
   then
     rm -rf "${downloadFolderName}"
@@ -49,10 +55,7 @@ function download_image() {
   fi
 
   cd "${downloadFolderName}"
-  # filenameList=`ls`
-  # startIndex=$((${#filenameList}))
   startIndex=`ls | wc -l`
-  echo $startIndex
 
   for((i=1; i<=$pictureAmount; i++))
   do
@@ -65,7 +68,6 @@ function download_image() {
     fi
   done
 
-  # zip -e ${downloadFolderName}.zip *
   zip -P $password ${downloadFolderName}.zip *
   mv ${downloadFolderName}.zip ..
   cd ..
@@ -83,9 +85,18 @@ function login_try() {
 if [[ "$commnd" == "dl" ]]
 then
   download_image
+  printf "\n------------------------------"
+  printf "\nSUCCESS downloaded $n pictures"
+  printf "\n------------------------------\n"
 elif [[ "$commnd" == "att" ]]
 then
-  echo "percobaan dilakukan sebanyak: $(login_try)"
+  printf "\n----------------------------"
+  printf "\nLOGIN attempts: $(login_try)"
+  printf "\n----------------------------\n"
+else
+  printf "\n----------------------------"
+  printf "\nERROR: Invalid command"
+  printf "\n----------------------------\n"
 fi
 
 exit 0
