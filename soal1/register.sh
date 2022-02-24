@@ -1,24 +1,32 @@
 # try to input username
+printf "================================\n"
+printf "!!!Welcome to register.sh!!!\n"
+printf "================================\n"
 printf "Input your username: "
 read username
 
 # to check is username already exists
 function check_username() {
-  local stat=1
-  uname=$(awk -v var="$username" '$1 ~ var' users/user.txt)
+  local user_exists=0
+  
+  for user in $(awk -F" " '{ print }' users/user.txt)
+  do
+    if [ $user == $username ]
+    then
+      user_exists=1
+      break  # exit program if username already exists
+    fi
+  done
 
-  if [[ ${#uname} -gt 0 ]]
-  then
-    stat=$? # return 1 for false
-  fi
-
-  echo $stat
+  echo $user_exists
 }
 # call the function
-if [[ $(check_username) -eq 0 ]]
+if [[ $(check_username) -gt 0 ]]
 then
   echo "`date +"%D %H:%M:%S"` REGISTER: ERROR User already exists" >> log.txt
-  echo "REGISTER: ERROR User already exists"  # if register is fail
+  printf "\n-----------------------------------"
+  printf "\nREGISTER: ERROR User already exists"  # if register is fail
+  printf "\n-----------------------------------\n"
   exit 0  # exit program if username already exists
 fi
 
@@ -27,23 +35,33 @@ printf "Input your password: "
 read -s password
 
 # to check is password valid or not
-function validate_password() {
-  local stat=1  #assigns 1 to (stat)
-  length=${#password} #counts each character in the password length
-
-  # checks for nums, lowercase, uppercase, leght of password, not equal to username
-  if  [[ $password =~ [0-9] ]] && [[ $password =~ [a-z] ]] && [[ $password =~ [A-Z] ]]  && [[ "$length" -ge 8 ]] && [[ $password != $username ]]
-  then 
-    stat=$? #return 1 for false
-  fi
-
-  echo $stat
-}
 # loop until input password is valid
-until [[ $(validate_password) -eq 0 ]]
+until [[ "$password" =~ [A-Z] && "$password" =~ [a-z] && "$password" =~ [0-9] && "$password" != "$username" && ${#password} -ge 8 ]]
 do
-  echo "Your input password is invalid"
-  echo "Input password again: "
+  printf "\n------------------------------------------------------------"
+  if  [[ ! $password =~ [0-9] ]]
+  then 
+    printf "\nERROR: Password must contain at least one number"
+  fi
+  if [[ ! $password =~ [a-z] ]]
+  then
+    printf "\nERROR: Password must contain at least one lowercase letter"
+  fi
+  if [[ ! $password =~ [A-Z] ]]
+  then
+    printf "\nERROR: Password must contain at least one uppercase letter"
+  fi
+  if [[ ${#password} -lt 8 ]]
+  then
+    printf "\nERROR: Password must be at least 8 characters long"
+  fi
+  if [[ $password == $username ]]
+  then
+    printf "\nERROR: Password must not be the same as the username"
+  fi
+  printf "\n------------------------------------------------------------"
+
+  printf "\nPlease input password again: "
   read -s password
 done
 
@@ -52,4 +70,6 @@ echo "$username $password" >> ./users/user.txt
 
 # if register is success
 echo "`date +"%D %H:%M:%S"` REGISTER: INFO User $username registered successfully" >> log.txt
-echo "REGISTER: INFO User $username registered successfully"
+printf "\n-----------------------------------------------------"
+printf "\nREGISTER: INFO User $username registered successfully"
+printf "\n-----------------------------------------------------\n"
