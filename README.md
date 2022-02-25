@@ -624,7 +624,7 @@ chmod -wx "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 chmod o-r "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 ```
 
-## cron
+**cron**
 
 Untuk menjalankan crontab yang diperlukan adalah
 
@@ -641,7 +641,7 @@ kumpulan script yang di dalam bash dituliskan di crontab) namun sayangnya tidak 
 karena command `logFileName="metrics_agg_\`date +%Y%m%d%H\`.log"` yang entah mengapa tidak dapat dijalankan
 namun ketika scriptnya di-copy dan dijalankan langsung pada terminal dapat berjalan dengan baik.
 
-## Dokumentasi Pengerjaan dan Rintangan
+**Dokumentasi Pengerjaan dan Rintangan**
 
 Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan
 
