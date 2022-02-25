@@ -1,34 +1,34 @@
 # try to input username
-printf "================================\n"
-printf "!!!Welcome to register.sh!!!\n"
-printf "================================\n"
+printf "===========================\n"
+printf "!!!Welcome to login page!!!\n"
+printf "===========================\n"
 printf "Input your username: "
 read username
 printf "Input your password: "
 read -s password
 
 function check_password() {
-  local stat=1
-  uname=$(awk -v var="$username" '$1 ~ var' users/user.txt)
-  data="$username $password"
-  if [[ $uname == $data ]]
+  local is_correct=1
+  data_from_file=$(awk -v var="$username" '$1 ~ var' users/user.txt)
+  data_from_input="$username $password"
+  if [[ $data_from_file == $data_from_input ]]
   then
-    stat=$? # return 1 for false
+    is_correct=$? # return 1 for false
   fi
 
-  echo $stat
+  echo $is_correct
 }
 
 if [[ $(check_password) == 0 ]]
 then
   echo "`date +"%D %T"` LOGIN: INFO User $username logged in" >> log.txt
   printf "\n--------------------------------------"
-  printf "\nLOGIN: INFO User $username logged in"  # if register is fail
+  printf "\nLOGIN: INFO User $username logged in"  # if log in is fail
   printf "\n--------------------------------------"
 else
   echo "`date +"%D %T"` LOGIN: ERROR Failed login attempt on user $username" >> log.txt
   printf "\n---------------------------------------------------------"
-  printf "\nLOGIN: ERROR Failed login attempt on user $username"  # if register is fail
+  printf "\nLOGIN: ERROR Failed login attempt on user $username"  # if log in is fail
   printf "\n---------------------------------------------------------"
   exit 0  # exit program if username already exists
 fi
@@ -37,29 +37,29 @@ printf "\nInput command: "
 read commnd n
 
 function download_image() {
-  pictureAmount=$n
-  timeStampForFileName="`date "+%F"`"
-  downloadFolderName="${timeStampForFileName}_${username}"
+  picture_amount=$n
+  time_stamp_for_file_name="`date "+%F"`"
+  download_folder_name="${time_stamp_for_file_name}_${username}"
 
-  if [ -d "${downloadFolderName}" ]
+  if [ -d "${download_folder_name}" ]
   then
-    rm -rf "${downloadFolderName}"
+    rm -rf "${download_folder_name}"
   fi
 
-  mkdir "${downloadFolderName}"
+  mkdir "${download_folder_name}"
 
-  if [ -e "${downloadFolderName}.zip" ]
+  if [ -e "${download_folder_name}.zip" ]
   then
-    unzip -P "${password}" "${downloadFolderName}.zip" -d "${downloadFolderName}"
-    rm -rf "${downloadFolderName}.zip"
+    unzip -P "${password}" "${download_folder_name}.zip" -d "${download_folder_name}"
+    rm -rf "${download_folder_name}.zip"
   fi
 
-  cd "${downloadFolderName}"
-  startIndex=`ls | wc -l`
+  cd "${download_folder_name}"
+  start_index=`ls | wc -l`
 
-  for((i=1; i<=$pictureAmount; i++))
+  for((i=1; i<=$picture_amount; i++))
   do
-    index=$(($startIndex+$i))
+    index=$(($start_index+$i))
     if [[ $index -lt 10 ]]
     then
       wget -cO PIC_0$index https://loremflickr.com/320/240
@@ -68,10 +68,10 @@ function download_image() {
     fi
   done
 
-  zip -P $password ${downloadFolderName}.zip *
-  mv ${downloadFolderName}.zip ..
+  zip -P $password ${download_folder_name}.zip *
+  mv ${download_folder_name}.zip ..
   cd ..
-  rm -rf "${downloadFolderName}"
+  rm -rf "${download_folder_name}"
 }
 
 function login_try() {
