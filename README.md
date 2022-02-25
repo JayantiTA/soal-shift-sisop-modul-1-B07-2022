@@ -117,6 +117,162 @@ printf "\nREGISTER: INFO User $username registered successfully"
 printf "\n-----------------------------------------------------\n"
 ```
 
+**main.sh**
+
+Script bash `register.sh` digunakan untuk login user. User juga bisa mendownload gambar dari https://loremflickr.com/320/240, serta menampilkan jumlah percobaan login yang pernah dilakukan oleh user (baik berhasil maupun tidak). Di awal program terdapat _welcome message_ dan diminta untuk menginput username beserta password.
+
+```bash
+printf "===========================\n"
+printf "!!!Welcome to login page!!!\n"
+printf "===========================\n"
+printf "Input your username: "
+read username
+printf "Input your password: "
+read -s password
+```
+
+Kemudian terdapat fungsi untuk mengecek username beserta passwordnya.
+
+```bash
+function check_password() {
+  local is_correct=1
+  data_from_file=$(awk -v var="$username" '$1 ~ var' users/user.txt)
+  data_from_input="$username $password"
+  if [[ $data_from_file == $data_from_input ]]
+  then
+    is_correct=$? # return 1 for false
+  fi
+
+  echo $is_correct
+}
+```
+
+- Buat variabel local `is_correct` untuk menyimpan hasil cek password dan digunakan sebagai return value.
+- Fungsi `awk -v var="$username" '$1 ~ var' users/user.txt` akan mengecek data user dengan mencari username terlebih dahulu, kemudian mengembalikan satu line data yang berisi username beserta passwordnya. Kemudian disimpan ke dalam variabel bernama `data_from_file`.
+- Username dan password yang diinputkan disimpan ke dalam variabel `data_from_input`.
+- Kemudian akan dicek username dan password apakah `data_from_file` sama dengan `data_from_input`. `$?` berarti apabila pernyataan sebelumnya benar, maka variabel `is_correct` akan bernilai 0, dan apabila salah akan bernilai 1.
+
+```bash
+if [[ $(check_password) == 0 ]]
+then
+  echo "`date +"%D %T"` LOGIN: INFO User $username logged in" >> log.txt
+  printf "\n--------------------------------------"
+  printf "\nLOGIN: INFO User $username logged in"  # if log in is fail
+  printf "\n--------------------------------------"
+else
+  echo "`date +"%D %T"` LOGIN: ERROR Failed login attempt on user $username" >> log.txt
+  printf "\n---------------------------------------------------------"
+  printf "\nLOGIN: ERROR Failed login attempt on user $username"  # if log in is fail
+  printf "\n---------------------------------------------------------"
+  exit 0  # exit program if username already exists
+fi
+```
+
+- Jika return value dari fungsi `check_password` bernilai 0, maka proses log in berhasil dan pesan log akan dimasukkan ke dalam file `log.txt` serta ditampilkan di terminal.
+- Jika return value dari fungsi `check_password` bernilai selain 0, maka proses log in gagal dan pesan error akan dimasukkan ke dalam file `log.txt` serta ditampilkan di terminal. Kemudian program dihentikan.
+
+Ketika proses log in berhasil maka akan dilanjutkan input sebuah command.
+
+```bash
+printf "\nInput command: "
+read commnd n
+```
+
+- `commnd` merupakan _command_ yang akan dijalankan (`dl` untuk men-_download_ gambar dan `att` untuk menampilkan banyaknya percobaan log in).
+- `n` merupakan banyaknya gambar yang akan di-_download_ ketika menginputkan _command_ `dl`.
+
+Kemudian terdapat function untuk men-_download_ gambar dan memunculkan banyaknya percobaan log in.
+
+```bash
+function download_image() {
+  picture_amount=$n
+  time_stamp_for_file_name="`date "+%F"`"
+  download_folder_name="${time_stamp_for_file_name}_${username}"
+
+  if [ -d "${download_folder_name}" ]
+  then
+    rm -rf "${download_folder_name}"
+  fi
+
+  mkdir "${download_folder_name}"
+
+  if [ -e "${download_folder_name}.zip" ]
+  then
+    unzip -P "${password}" "${download_folder_name}.zip" -d "${download_folder_name}"
+    rm -rf "${download_folder_name}.zip"
+  fi
+
+  cd "${download_folder_name}"
+  start_index=`ls | wc -l`
+
+  for((i=1; i<=$picture_amount; i++))
+  do
+    index=$(($start_index+$i))
+    if [[ $index -lt 10 ]]
+    then
+      wget -cO PIC_0$index https://loremflickr.com/320/240
+    else
+      wget -cO PIC_$index https://loremflickr.com/320/240
+    fi
+  done
+
+  zip -P $password ${download_folder_name}.zip *
+  mv ${download_folder_name}.zip ..
+  cd ..
+  rm -rf "${download_folder_name}"
+}
+```
+
+- Variabel `picture_amount` untuk menyimpan nilai `n` yakni banyaknya gambar yang akan di-_download_.
+- Variabel `time_stamp_for_file_name` untuk menyimpan tanggal yang akan digunakan untuk penamaan file.
+- Variabel `download_folder_name` untuk menyimpan nama folder.
+- Jika folder yang dituju sudah ada sebelumnya, maka akan dihapus terlebih dahulu.
+- Kemudian akan dibuat folder baru dengan nama sesuai `download_folder_name`.
+- Jika sudah ada file zip dengan nama yang sama, maka akan di-_unzip_ terlebih dahulu kemudian dihapus.
+- Kemudian masuk ke dalam folder `download_folder_name` dan menghitung jumlah gambar yang ada di dalam folder tersebut menggunakan `ls | wc -l`.
+- Start _download_ dengan index awal melanjutkan jumlah gambar yang sudah ada di dalam folder `download_folder_name`. _Download_ gambar menggunakan `wget -cO nama_gambar https://loremflickr.com/320/240`. `nama_gambar` diubah sesuai format yang diminta, yaitu `PIC_$index`.
+- Setelah _download_ selesai, folder di-_zip_ kembali menggunakan password `zip -P $password ${download_folder_name}.zip *`.
+- Karena file zip masih berada di direktori `download_folder_name`, maka harus dipindah keluar direktori tersebut menggunakan `mv ${download_folder_name}.zip ..`.
+- Setelah itu keluar direktori menggunakan `cd ..` dan hapus folder `download_folder_name` menggunakan `rm -rf "${download_folder_name}"`.
+
+```bash
+function login_try() {
+  tries=$(awk -v var="$username" '
+  /log/ && $0 ~ var { ++n }
+  END { print n }' log.txt)
+
+  echo $tries
+}
+```
+
+- Hitung banyaknya percobaan log in menggunakan `awk -v var="$username" '/log/ && $0 ~ var { ++n } END { print n }' log.txt`, dimana akan mencari line yang mengandung kata log dan username yang sedang log in.
+- Return value berupa hasil perhitungan banyaknya baris yang sesuai dengan pattern yang diminta.
+
+Kemudian masuk ke kondisi apakah _command_ yang diinputkan `dl` atau `att`.
+
+```bash
+if [[ "$commnd" == "dl" ]]
+then
+  download_image
+  printf "\n------------------------------"
+  printf "\nSUCCESS downloaded $n pictures"
+  printf "\n------------------------------\n"
+elif [[ "$commnd" == "att" ]]
+then
+  printf "\n----------------------------"
+  printf "\nLOGIN attempts: $(login_try)"
+  printf "\n----------------------------\n"
+else
+  printf "\n----------------------------"
+  printf "\nERROR: Invalid command"
+  printf "\n----------------------------\n"
+fi
+```
+
+- Jika `commnd` yang diinputkan adalah `dl`, maka akan dipanggil fungsi `download_image`. Setelah _download_ selesai akan dimunculkan pesan berhasil.
+- Jika `commnd` yang diinputkan adalah `att`, maka akan dimunculkan banyaknya percobaan log in sesuai return value dari fungsi `login_try`.
+- Jika `commnd` yang diinputkan selain `dl` dan `att`, maka akan muncul error berupa _invalid command_.
+
 ## Nomor 3
 
 **minute_log.sh**
