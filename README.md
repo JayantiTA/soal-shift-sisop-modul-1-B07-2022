@@ -493,7 +493,6 @@ variabel penyimpanan yang telah dibuat.
 ```bash
 for file in $fileList
 do
-
 	if [ ${#file} -eq 26 ] && [ ${file:0:8} == "metrics_" ] && [ ${file:0:12} != "metrics_agg_" ]
 	then
 		fileYear=$((10#${file:8:4}))
