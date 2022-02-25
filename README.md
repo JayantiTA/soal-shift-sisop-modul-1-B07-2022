@@ -623,7 +623,7 @@ chmod -wx "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 chmod o-r "${HOME}/${LOG_DIRECTORY}/${logFileName}"
 ```
 
-## cron
+**cron**
 
 Untuk menjalankan crontab yang diperlukan adalah
 
@@ -637,22 +637,14 @@ Untuk menjalankan crontab yang diperlukan adalah
 Kami sudah mencoba membuat script bash untuk langsung membuat crontab ketika program dijalankan yaitu dengan
 crontab menjalankan semua script yang terdapat di dalam file bash (bukan menjalankan bash, tetapi langsung
 kumpulan script yang di dalam bash dituliskan di crontab) namun sayangnya tidak dapat dijalankan
-karena command `logFileName="metrics_agg_`date +%Y%m%d%H`.log"` yang entah mengapa tidak dapat dijalankan
+karena command `logFileName="metrics_agg_\`date +%Y%m%d%H\`.log"` yang entah mengapa tidak dapat dijalankan
 namun ketika scriptnya di-copy dan dijalankan langsung pada terminal dapat berjalan dengan baik.
 
-## Dokumentasi Pengerjaan dan Rintangan
+**Dokumentasi Pengerjaan dan Rintangan**
 
 Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan
 
-![Dokumentasi 1](soal3/Pengerjaan6.png/)
-![Dokumentasi 2](soal3/Pengerjaan7.png/)
-![Dokumentasi 3](soal3/Pengerjaan8.png/)
-![Dokumentasi 4](soal3/Pengerjaan9.png/)
-![Dokumentasi 5](soal3/Pengerjaan10.png/)
-![Dokumentasi 6](soal3/Pengerjaan11.png/)
-![Dokumentasi 7](soal3/Pengerjaan12.png/)
-![Dokumentasi 8](soal3/Rintangan9.png/)
-![Dokumentasi 9](soal3/Rintangan10.png/)
+---
 
 Rintangan yang dihadapi adalah mencari direktori /home/{user}/ yang ternyata nilainya disimpan pada variabel
 $HOME. Kemudian melakukan partisi string data memori yang berasal dari `free -m` yang dapat dilakukan dengan
