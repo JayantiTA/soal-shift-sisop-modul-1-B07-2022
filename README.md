@@ -637,7 +637,7 @@ Untuk menjalankan crontab yang diperlukan adalah
 Kami sudah mencoba membuat script bash untuk langsung membuat crontab ketika program dijalankan yaitu dengan
 crontab menjalankan semua script yang terdapat di dalam file bash (bukan menjalankan bash, tetapi langsung
 kumpulan script yang di dalam bash dituliskan di crontab) namun sayangnya tidak dapat dijalankan
-karena command `logFileName="metrics_agg_\`date +%Y%m%d%H\`.log"` yang entah mengapa tidak dapat dijalankan
+karena command `` logFileName="metrics_agg_\`date +%Y%m%d%H\`.log" `` yang entah mengapa tidak dapat dijalankan
 namun ketika scriptnya di-copy dan dijalankan langsung pada terminal dapat berjalan dengan baik.
 
 **Dokumentasi Pengerjaan dan Rintangan**
