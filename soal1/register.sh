@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # try to input username
 printf "================================\n"
 printf "!!!Welcome to register.sh!!!\n"
