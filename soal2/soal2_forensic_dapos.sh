@@ -7,10 +7,6 @@ RESULT_FILE="result.txt"
 if [ ! -d "${DIRECTORY_FILE_RESULT}" ]
 then
 	mkdir "${DIRECTORY_FILE_RESULT}"
-	cd "${DIRECTORY_FILE_RESULT}"
-	touch "${RERATA_FILE}"
-	touch "${RESULT_FILE}"
-	cd ..
 fi
 
 awk '
