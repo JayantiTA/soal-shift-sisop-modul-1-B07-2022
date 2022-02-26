@@ -21,7 +21,7 @@ awk '
 		}
 	}
 	END {
-		print "Rata-rata serangan adalah sebanyak", totalRequest/24, "requests per jam"
+		print "Rata-rata serangan adalah sebanyak", totalRequest/12, "requests per jam"
 	}
 ' log_website_daffainfo.log > "${DIRECTORY_FILE_RESULT}/${RERATA_FILE}"
 
