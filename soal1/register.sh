@@ -9,14 +9,22 @@ read username
 function check_username() {
   local user_exists=0
   
-  for user in $(awk '{ print $1 }' users/user.txt)
-  do
-    if [ $user == $username ]
-    then
-      user_exists=1
-      break  # exit program if username already exists
-    fi
-  done
+  if [[ ! -d "./users" ]]
+  then
+    mkdir "users"
+    cd users
+    touch "user.txt"
+    cd ..
+  else
+    for user in $(awk '{ print $1 }' users/user.txt)
+    do
+      if [ $user == $username ]
+      then
+        user_exists=1
+        break  # exit program if username already exists
+      fi
+    done
+  fi
 
   echo $user_exists
 }
