@@ -644,7 +644,14 @@ namun ketika scriptnya di-copy dan dijalankan langsung pada terminal dapat berja
 
 Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan
 
----
+![dokumentasi 1](dokumentasi/soal3/Rintangan10.png)
+![dokumentasi 2](dokumentasi/soal3/Pengerjaan6.png)
+![dokumentasi 3](dokumentasi/soal3/Pengerjaan7.png)
+![dokumentasi 4](dokumentasi/soal3/Pengerjaan8.png)
+![dokumentasi 5](dokumentasi/soal3/Pengerjaan9.png)
+![dokumentasi 6](dokumentasi/soal3/Pengerjaan10.png)
+![dokumentasi 7](dokumentasi/soal3/Pengerjaan11.png)
+![dokumentasi 8](dokumentasi/soal3/Pengerjaan12.png)
 
 Rintangan yang dihadapi adalah mencari direktori /home/{user}/ yang ternyata nilainya disimpan pada variabel
 $HOME. Kemudian melakukan partisi string data memori yang berasal dari `free -m` yang dapat dilakukan dengan
