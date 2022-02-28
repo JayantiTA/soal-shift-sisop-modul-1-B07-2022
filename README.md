@@ -273,6 +273,17 @@ fi
 - Jika `commnd` yang diinputkan adalah `att`, maka akan dimunculkan banyaknya percobaan log in sesuai return value dari fungsi `login_try`.
 - Jika `commnd` yang diinputkan selain `dl` dan `att`, maka akan muncul error berupa _invalid command_.
 
+## Nomor 2
+
+**Dokumentasi Pengerjaan dan Rintangan**
+
+![dokumentasi 1](dokumentasi/soal2/Pengerjaan4.png)
+![dokumentasi 2](dokumentasi/soal2/Pengerjaan5.png)
+![dokumentasi 3](dokumentasi/soal2/Rintangan7.png)
+![dokumentasi 4](dokumentasi/soal2/Rintangan8.png)
+
+Rintangan yang dihadapi adalah mencari syntax-syntax yang terdapat di dalam awk. Kemudian sempat terdapat kesalahan pengaturan algoritma penyimpanan ip yang melakukan penyerangan pada pukul 2 sehingga IP yang sama muncul berkali-kali.
+
 ## Nomor 3
 
 **minute_log.sh**
