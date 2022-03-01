@@ -273,6 +273,20 @@ fi
 - Jika `commnd` yang diinputkan adalah `att`, maka akan dimunculkan banyaknya percobaan log in sesuai return value dari fungsi `login_try`.
 - Jika `commnd` yang diinputkan selain `dl` dan `att`, maka akan muncul error berupa _invalid command_.
 
+**Dokumentasi Pengerjaan dan Rintangan**
+
+Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan dari soal1.
+
+![dokumentasi 1](dokumentasi/soal1/Pengerjaan1.png)
+![dokumentasi 2](dokumentasi/soal1/Rintangan1.png)
+![dokumentasi 3](dokumentasi/soal1/Rintangan2.png)
+
+Dokumentasi pertama merupakan _screenshot_ saat kami mengadakan meet bertiga untuk membahas bersama terkait soal yang dikerjakan.
+
+Dokumentasi kedua merupakan salah satu rintangan kami ketika harus menyimpan data gambar yang di-_download_ dengan format `.zip`. Dan apabila ada tambahan gambar lagi sesuai username dan tanggal _download_ maka akan dimasukkan kembali ke dalam file `.zip`. Kami sedikit kebingungan pada syarat bahwa file `zip` harus dipassword sesuai dengan password username tersebut. Dibuktikan pada gambar dokumentasi bahwa password sebelumnya tidak bisa masuk otomatis, namun kami sudah menemukan solusinya. Pertama kami membuat folder untuk tempat hasil download, kemudian masuk ke dalam folder tersebut untuk memasukkan semua file gambar dalam folder ke file `.zip` menggunakan `zip -P $password ${download_folder_name}.zip *`. Kemudian kami memindahkan file `.zip` yang ada di dalam folder keluar satu direktori (supaya berada pada folder soal1), barulah kami hapus folder yang sudah tidak diperlukan. Apabila ingin menambah gambar, maka perlu meng-_unzip_ file `.zip` terlebih dahulu ke dalam sebuah folder. Kemudian index gambar yang di-_download_ melanjutkan dari total gambar yang sudah ada. Jika sudah, maka semua file gambar dimasukkan ke dalam file `.zip` kembali.
+
+Rintangan kedua kami adalah ketidaktelitian dalam menuliskan _code script_ sehingga terdapat sedikit _syntax error_ di beberapa lines. Rintangan selanjutnya adalah kesalahan penggunaan fungsi yang mengakibatkan return value dari sebuah fungsi tidak bisa diakses (tidak sempat didokumentasikan).
+
 ## Nomor 2
 
 **Dokumentasi Pengerjaan dan Rintangan**
