@@ -295,6 +295,128 @@ Rintangan kedua kami adalah ketidaktelitian dalam menuliskan _code script_ sehin
 
 ## Nomor 2
 
+**soal2_forensic_dapos.sh**
+
+Script bash soal2_forensic_dapos.sh dibuat untuk mencari rata-rata serangan per jam, ip address paling banyak mengakses server dan berapa banyak ip address mengakses server, jumlah requests yang menggunakan curl sebagai user agent, serta daftar ip address yang mengakses pada jam 2. 
+
+Pertama buat folder bernama forensic_log_website_daffainfo_log yang didalamnya terdapat 2 file txt yaitu ratarata.txt dan result.txt.
+
+```DIRECTORY_FILE_RESULT="forensic_log_website_daffainfo_log"
+RERATA_FILE="ratarata.txt"
+RESULT_FILE="result.txt"
+```
+Jika direktori result tidak ditemukan, maka buatlah direktori baru dengan perintah `mkdir "${nama_direktori}"`
+
+```if [ ! -d "${DIRECTORY_FILE_RESULT}" ]
+then
+	mkdir "${DIRECTORY_FILE_RESULT}"
+fi
+```
+Kemudian buat awk yang fungsinya untuk mencari pola rata-rata serangan per jam.
+- `FS = ":"` tanda ":" digunakan untuk pemisah antar string.
+- `totalrequest = 0` menginisialisasi total request
+-Jika kata pertama tidak sama dengan IP maka akan menampilkan semua data yang mengakses server sampai data terakhir.
+`if ($1 != "\"IP\"")`
+	`{
+	     totalRequest++
+	} `
+-Kemudian dilakukan print rata-rata yang didapatkan dari total request dibagi dengan 12
+`print "Rata-rata serangan adalah sebanyak", totalRequest/12, "requests per jam"`
+
+-Hasil akan tersimpan di direktori log_website_daffainfo.log dalam file rerata.txt
+` ' log_website_daffainfo.log > "${DIRECTORY_FILE_RESULT}/${RERATA_FILE}" `
+
+```
+awk '
+	BEGIN {
+		FS = ":"
+		totalRequest = 0
+	}
+	{
+		if ($1 != "\"IP\"")
+		{
+			totalRequest++
+		}
+	}
+	END {
+		print "Rata-rata serangan adalah sebanyak", totalRequest/12, "requests per jam"
+	}
+' log_website_daffainfo.log > "${DIRECTORY_FILE_RESULT}/${RERATA_FILE}"
+```
+Kemudian buat awk untuk mendapatkan IP yang paling banyak mengakses server dan yang menggunakan curl sebagai user agent. Dengan menginisialisasi variabel mostRequestIP , amountOfRequestFromMostRequestIP dan curlRequest.
+
+`FS = ":"` tanda  ":" berfungsi sebagai pemisah antar string.
+`mostRequestIP = "NULL" `	     = inisialisasi variabel
+`amountOfRequestFromMostRequest IP` = inisialisasi variabel 
+`curlRequest = 0 `		     = inisialisasi variabel
+
+jika string pertama tidak sama dengan IP, maka jumlah IP akan ditambah 1 
+`if ($1 != "\"IP\"")
+	dict[$1] += 1`
+
+`if (amountOfRequestFromMostRequestIP < dict[$1]) ` jika amountOfRequestFromMostRequestIP kurang dari dict[$1] maka akan diterima dalam mostResquestIP `mostRequestIP = $1` sebagai IP paling banyak mengakses server.  
+			
+`if (substr($9, 2, 4) == "curl") ` dari log_website_daffainfo.log akan dicari string "curl" dan berada pada string ke 9 dimana karakter ke 2 adalah "c" dan string tersebut berisikan 4 huruf (curl).
+
+`curlRequest += 1` apabila ditemukan kata curl maka jumlah curl ditambah 1.
+
+`if ($3 == "02")` mengecek IP Address yang mengakses pada pukul 2 dan disimpan pada `ipAddressAccessIn2AM[$1]`
+
+```
+awk '
+	BEGIN {
+		FS = ":"
+		mostRequestIP = "NULL"
+		amountOfRequestFromMostRequestIP = 0
+		
+		curlRequest = 0
+	}
+	{
+		if ($1 != "\"IP\"")
+		{
+			dict[$1] += 1
+			if (amountOfRequestFromMostRequestIP < dict[$1])
+			{
+				mostRequestIP = $1
+				amountOfRequestFromMostRequestIP = dict[$1]
+			}
+			
+			if (substr($9, 2, 4) == "curl")
+			{
+				curlRequest += 1
+			}
+			
+			if ($3 == "02")
+			{
+				ipAddressAccessIn2AM[$1] = 1
+			}
+		}
+	}
+	
+```
+Selanjutnya print hasil dari mostrequest untuk menampilkan IP Address yang paling banyak mengakses server dan jumlah request yang telah dilakukan.
+	`print "IP yang paling banyak mengakses server adalah: ", mostRequestIP, " sebanyak ", dict[mostRequestIP], " requests\n" `
+
+Menampilkan jumlah user agent yang melakukan request menggunakan curl
+```print "Ada ", curlRequest, " requests yang menggunakan curl sebagai user agent\n"```
+
+Terakhir, print IP Address yang mengakses dipukul 2 yang telah didapatkannya sebelumnya.
+`for (i in ipAddressAccessIn2AM)` kemudian `print i`
+
+```END {
+		print "IP yang paling banyak mengakses server adalah: ", mostRequestIP, " sebanyak ", dict[mostRequestIP], " requests\n"
+		print "Ada ", curlRequest, " requests yang menggunakan curl sebagai user agent\n"
+		
+		for (i in ipAddressAccessIn2AM)
+		{
+			print i
+		}
+	}
+' log_website_daffainfo.log > "${DIRECTORY_FILE_RESULT}/${RESULT_FILE}"
+```
+
+
+
 **Dokumentasi Pengerjaan dan Rintangan**
 
 ![dokumentasi 1](dokumentasi/soal2/Pengerjaan4.png)
