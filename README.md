@@ -2,6 +2,12 @@
 
 Repository untuk soal shift sisop modul 1 kelompok B07 tahun 2022
 
+Angoota:
+
+1. Hans Sean Nathanael (5025201019)
+2. Jayanti Totti Andhina (5025201037)
+3. Agnesfia Anggraeni (5025201059)
+
 ## Nomor 1
 
 **register.sh**
