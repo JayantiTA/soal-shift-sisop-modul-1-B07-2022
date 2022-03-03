@@ -305,13 +305,6 @@ Pertama buat folder bernama forensic_log_website_daffainfo_log yang didalamnya t
 RERATA_FILE="ratarata.txt"
 RESULT_FILE="result.txt"
 ```
-Jika direktori result tidak ditemukan, maka buatlah direktori baru dengan perintah `mkdir "${nama_direktori}"`
-
-```if [ ! -d "${DIRECTORY_FILE_RESULT}" ]
-then
-	mkdir "${DIRECTORY_FILE_RESULT}"
-fi
-```
 Kemudian buat awk yang fungsinya untuk mencari pola rata-rata serangan per jam.
 - `FS = ":"` tanda ":" digunakan untuk pemisah antar string.
 - `totalrequest = 0` menginisialisasi total request
