@@ -4,11 +4,6 @@ DIRECTORY_FILE_RESULT="forensic_log_website_daffainfo_log"
 RERATA_FILE="ratarata.txt"
 RESULT_FILE="result.txt"
 
-if [ ! -d "${DIRECTORY_FILE_RESULT}" ]
-then
-	mkdir "${DIRECTORY_FILE_RESULT}"
-fi
-
 awk '
 	BEGIN {
 		FS = ":"
