@@ -283,9 +283,9 @@ fi
 
 Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan dari soal1.
 
-![dokumentasi 1](dokumentasi/soal1/Pengerjaan1.png)
-![dokumentasi 2](dokumentasi/soal1/Rintangan1.png)
-![dokumentasi 3](dokumentasi/soal1/Rintangan2.png)
+![Pengerjaan1](/uploads/9379dba69efb83a2b1e37e34bf72a118/Pengerjaan1.png)
+![Rintangan1](/uploads/f24f373ef7e36a20bc18920fcc2dbf74/Rintangan1.png)
+![Rintangan2](/uploads/10833f425baa86055853b18e52e96808/Rintangan2.png)
 
 Dokumentasi pertama merupakan _screenshot_ saat kami mengadakan meet bertiga untuk membahas bersama terkait soal yang dikerjakan.
 
@@ -412,10 +412,10 @@ Terakhir, print IP Address yang mengakses dipukul 2 yang telah didapatkannya seb
 
 **Dokumentasi Pengerjaan dan Rintangan**
 
-![dokumentasi 1](dokumentasi/soal2/Pengerjaan4.png)
-![dokumentasi 2](dokumentasi/soal2/Pengerjaan5.png)
-![dokumentasi 3](dokumentasi/soal2/Rintangan7.png)
-![dokumentasi 4](dokumentasi/soal2/Rintangan8.png)
+![Pengerjaan4](/uploads/a81fdf9d7bdcc4c477ef54023faae62f/Pengerjaan4.png)
+![Pengerjaan5](/uploads/9d644d70dae74e0115d0109985f6863f/Pengerjaan5.png)
+![Rintangan7](/uploads/fa2c58648c8d39d7a505c77af75ff649/Rintangan7.png)
+![Rintangan8](/uploads/459879c3ee4419a6e40e5acb09ac255c/Rintangan8.png)
 
 Rintangan yang dihadapi adalah mencari syntax-syntax yang terdapat di dalam awk. Kemudian sempat terdapat kesalahan pengaturan algoritma penyimpanan ip yang melakukan penyerangan pada pukul 2 sehingga IP yang sama muncul berkali-kali.
 
@@ -790,14 +790,14 @@ namun ketika scriptnya di-copy dan dijalankan langsung pada terminal dapat berja
 
 Berikut adalah beberapa screenshoot dokumentasi pengerjaan dan rintangan
 
-![dokumentasi 1](dokumentasi/soal3/Rintangan10.png)
-![dokumentasi 2](dokumentasi/soal3/Pengerjaan6.png)
-![dokumentasi 3](dokumentasi/soal3/Pengerjaan7.png)
-![dokumentasi 4](dokumentasi/soal3/Pengerjaan8.png)
-![dokumentasi 5](dokumentasi/soal3/Pengerjaan9.png)
-![dokumentasi 6](dokumentasi/soal3/Pengerjaan10.png)
-![dokumentasi 7](dokumentasi/soal3/Pengerjaan11.png)
-![dokumentasi 8](dokumentasi/soal3/Pengerjaan12.png)
+![Pengerjaan6](/uploads/2c6f15be746b8bf37df19f4a4551b80f/Pengerjaan6.png)
+![Pengerjaan7](/uploads/6230c5c13f85411bf0e7459f0f3817aa/Pengerjaan7.png)
+![Pengerjaan8](/uploads/3892d235f26f533f05eead0d113e3aba/Pengerjaan8.png)
+![Pengerjaan9](/uploads/962c04c7b44093292f490de2f89a12cb/Pengerjaan9.png)
+![Pengerjaan10](/uploads/e67fdd9344486b654554b9e5e86e6038/Pengerjaan10.png)
+![Pengerjaan11](/uploads/fe358ce1afa01a72dedc4e1f6ea6cdcd/Pengerjaan11.png)
+![Pengerjaan12](/uploads/092c38536c73549036ceee89b44455a6/Pengerjaan12.png)
+![Rintangan10](/uploads/77e383625418bbd12287eb04e4fd5b9b/Rintangan10.png)
 
 Rintangan yang dihadapi adalah mencari direktori /home/{user}/ yang ternyata nilainya disimpan pada variabel
 $HOME. Kemudian melakukan partisi string data memori yang berasal dari `free -m` yang dapat dilakukan dengan
